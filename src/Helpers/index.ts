@@ -1,3 +1,3 @@
 export { default as createLambdaResponse } from './createLambdaResponse';
-export { default as getContextByMode } from './getContextByMode';
-export { default as getEventByMode } from './getEventByMode';
+export { default as getRequestEventMethod } from './getRequestEventMethod';
+export { default as getRequestEventPath } from './getRequestEventPath';

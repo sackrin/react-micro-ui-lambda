@@ -8,9 +8,9 @@ import type { CreateLambdaRoute } from '@typings/CreateLambdaRoute';
 import doBootstrapHandler from '@handlers/doBootstrapHandler';
 import doStrapHandler from '@handlers/doStrapHandler';
 import doNotFoundHandler from '@handlers/doNotFoundHandler';
-import getEventByMode from '@helpers/getEventByMode';
-import getContextByMode from '@helpers/getContextByMode';
 import createLambdaResponse from '@helpers/createLambdaResponse';
+import getRequestEventPath from "@helpers/getRequestEventPath";
+import getRequestEventMethod from "@helpers/getRequestEventMethod";
 
 const createLambdaMicroUI: CreateLambda = (event, context, mode, { config, profile = 'local', logger = console }) => {
   // Retrieve the environment profiles
@@ -42,17 +42,9 @@ const createLambdaMicroUI: CreateLambda = (event, context, mode, { config, profi
       routes.push([`/${name}`, 'POST', doStrapHandler(name, component, logger, env, config, 'POST')]);
     };
     // Boots and executes the lambda server
-    const boot: CreateLambdaBoot = async (_event, _context) => {
-      // Retrieve the event and context in a standard format
-      // This helps compatibility between REST and HTTP api gateways
-      const event = getEventByMode(mode, _event);
-      const context = getContextByMode(mode, _context);
-      // Retrieve the path and method
-      const {
-        requestContext: {
-          http: { path, method },
-        },
-      } = event;
+    const boot: CreateLambdaBoot = async (event, context) => {
+      const path = getRequestEventPath(mode, event);
+      const method = getRequestEventMethod(mode, event);
       // Search for and return the relevant handler
       // @TODO would be cool to use a regex in the future?
       // @TODO yes a find would probably be better
