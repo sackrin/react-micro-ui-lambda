@@ -1,0 +1,50 @@
+{
+  "name": "@sackrin/react-micro-ui-lambda",
+  "version": "0.0.1",
+  "description": "adds the lambda bootstrap for a react micro ui",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "start": "npx nps"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sackrin/react-micro-ui-lambda.git"
+  },
+  "author": "Hilary Osborne",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sackrin/react-micro-ui-lambda/issues"
+  },
+  "homepage": "https://github.com/sackrin/react-micro-ui-lambda#readme",
+  "dependencies": {
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "@sackrin/react-micro-ui": "^0.2.6",
+    "core-js": "^3.6.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.7",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.8.3",
+    "@babel/plugin-proposal-optional-chaining": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/plugin-transform-spread": "^7.8.3",
+    "@babel/preset-env": "^7.8.7",
+    "@babel/preset-typescript": "^7.9.0",
+    "@types/react-dom": "^16.9.6",
+    "@types/node": "^14.0.14",
+    "@types/react": "^16.9.41",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-module-resolver": "^3.2.0",
+    "nodemon": "^2.0.2",
+    "prettier": "^2.0.5",
+    "nps-utils": "^1.7.0",
+    "ts-loader": "^6.2.2",
+    "typescript": "^3.8.3"
+  }
+}
