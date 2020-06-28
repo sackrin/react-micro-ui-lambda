@@ -1,6 +1,6 @@
 {
   "name": "@sackrin/react-micro-ui-lambda",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "adds the lambda bootstrap for a react micro ui",
   "main": "lib/index.js",
   "files": [
