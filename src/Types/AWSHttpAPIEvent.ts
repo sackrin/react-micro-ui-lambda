@@ -4,21 +4,10 @@ type AWSHttpAPIEvent = {
   rawPath: string;
   rawQueryString: string;
   headers: {
-    accept: string;
-    'accept-encoding': string;
-    'accept-language': string;
-    'content-length': string;
-    'content-type': string;
-    host: string;
-    'postman-token': string;
-    'user-agent': string;
-    'x-amzn-trace-id': string;
-    'x-forwarded-for': string;
-    'x-forwarded-port': string;
-    'x-forwarded-proto': string;
+    [k: string]: string | void;
   };
   queryStringParameters?: {
-    [k: string]: string;
+    [k: string]: string | void;
   };
   requestContext: {
     accountId: string;
