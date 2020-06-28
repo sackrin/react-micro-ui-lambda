@@ -8,6 +8,9 @@ import type { CreateLambdaRoute } from '@typings/CreateLambdaRoute';
 import doBootstrapHandler from '@handlers/doBootstrapHandler';
 import doStrapHandler from '@handlers/doStrapHandler';
 import doNotFoundHandler from '@handlers/doNotFoundHandler';
+import getEventByMode from '@helpers/getEventByMode';
+import getContextByMode from '@helpers/getContextByMode';
+import createLambdaResponse from '@helpers/createLambdaResponse';
 
 const createLambdaMicroUI: CreateLambda = (event, context, mode, { config, profile = 'local', logger = console }) => {
   // Retrieve the environment profiles
@@ -39,7 +42,11 @@ const createLambdaMicroUI: CreateLambda = (event, context, mode, { config, profi
       routes.push([`/${name}`, 'POST', doStrapHandler(name, component, logger, env, config, 'POST')]);
     };
     // Boots and executes the lambda server
-    const boot: CreateLambdaBoot = async (event, context) => {
+    const boot: CreateLambdaBoot = async (_event, _context) => {
+      // Retrieve the event and context in a standard format
+      // This helps compatibility between REST and HTTP api gateways
+      const event = getEventByMode(mode, _event);
+      const context = getContextByMode(mode, _context);
       // Retrieve the path and method
       const {
         requestContext: {
@@ -51,7 +58,7 @@ const createLambdaMicroUI: CreateLambda = (event, context, mode, { config, profi
       // @TODO yes a find would probably be better
       const route = routes.find(([_path, _method, _handler]) => _path === path && method === _method);
       // Retrieve the payload
-      return route ? route[2](event, context) : doNotFoundHandler(event, context);
+      return route ? route[2](mode, event, context) : doNotFoundHandler(mode, event, context);
     };
     // Returns the instance of the server, the strapper the booter, the config and the logger
     return { route, strap, boot, env, config: config, logger };
@@ -61,13 +68,7 @@ const createLambdaMicroUI: CreateLambda = (event, context, mode, { config, profi
     // Log out the thrown error
     logger.error(_messages.CRASHED, e.message);
     // Trigger the callback
-    return {
-      headers: {
-        'content-type': 'application/json',
-      },
-      statusCode: 500,
-      body: JSON.stringify({ error: e.message }),
-    };
+    return createLambdaResponse({ error: e.message }, 500, {}, 'json');
   }
 };
 

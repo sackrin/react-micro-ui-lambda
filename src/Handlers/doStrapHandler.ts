@@ -5,6 +5,7 @@ import embedComponent from '@sackrin/react-micro-ui/lib/Helpers/embedComponent';
 import createLambdaResponse from '@helpers/createLambdaResponse';
 import { MicroUiConfigProfileEnv } from '@sackrin/react-micro-ui/lib/Types/MicroUiConfigProfileEnv';
 import { MicroUiConfig } from '@sackrin/react-micro-ui/lib/Types/MicroUiConfig';
+import LambdaModes from "@typings/LambdaModes";
 
 type DoStrapHandler = (
   name: string,
@@ -13,13 +14,13 @@ type DoStrapHandler = (
   env: MicroUiConfigProfileEnv,
   config: MicroUiConfig,
   method: string,
-) => (event: any, context: any) => Promise<LambdaResponse>;
+) => (mode: LambdaModes, event: any, context: any) => Promise<LambdaResponse>;
 
 // Direct Import React
 // We have to do it this way to permit SSR react + hooks
 const ReactDOMServer = require(path.join(process.cwd(), 'node_modules', 'react-dom', 'server'));
 
-const doStrapHandler: DoStrapHandler = (name, component, logger, env, config, method) => async (event, context) => {
+const doStrapHandler: DoStrapHandler = (name, component, logger, env, config, method) => async (mode, event, context) => {
   // This is needed to stop issues with window and document throwing errors in SSR
   (global as any).window = {};
   (global as any).document = {};

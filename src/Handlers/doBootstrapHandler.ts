@@ -4,13 +4,14 @@ import type { LambdaResponse } from '@typings/LambdaResponse';
 import createLambdaResponse from '@helpers/createLambdaResponse';
 import { MicroUiConfigProfileEnv } from '@sackrin/react-micro-ui/lib/Types/MicroUiConfigProfileEnv';
 import { MicroUiConfig } from '@sackrin/react-micro-ui/lib/Types/MicroUiConfig';
+import LambdaModes from '@typings/LambdaModes';
 
 type DoBootstrapHandler = (
   env: MicroUiConfigProfileEnv,
   config: MicroUiConfig,
-) => (event: any, context: any) => Promise<LambdaResponse>;
+) => (mode: LambdaModes, event: any, context: any) => Promise<LambdaResponse>;
 
-const doBootstrapHandler: DoBootstrapHandler = (env, { name, assets, api, manifest }) => async (event, context) => {
+const doBootstrapHandler: DoBootstrapHandler = (env, { name, assets, api, manifest }) => async (mode, event, context) => {
   // Retrieve the manifest file contents
   let manifestData = fs.readFileSync(manifest.filepath, 'utf8');
   // Determine the correct api and asset values based on
