@@ -1,6 +1,6 @@
 {
   "name": "@sackrin/react-micro-ui-lambda",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "adds the lambda bootstrap for a react micro ui",
   "main": "lib/index.js",
   "files": [
@@ -36,15 +36,19 @@
     "@babel/plugin-transform-spread": "^7.8.3",
     "@babel/preset-env": "^7.8.7",
     "@babel/preset-typescript": "^7.9.0",
-    "@types/react-dom": "^16.9.6",
+    "@types/aws-lambda": "^8.10.57",
     "@types/node": "^14.0.14",
     "@types/react": "^16.9.41",
+    "@types/react-dom": "^16.9.6",
     "babel-loader": "^8.0.6",
     "babel-plugin-module-resolver": "^3.2.0",
     "nodemon": "^2.0.2",
-    "prettier": "^2.0.5",
     "nps-utils": "^1.7.0",
+    "prettier": "^2.0.5",
     "ts-loader": "^6.2.2",
     "typescript": "^3.8.3"
+  },
+  "directories": {
+    "lib": "lib"
   }
 }
