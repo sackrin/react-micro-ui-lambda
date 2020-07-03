@@ -22,7 +22,7 @@ const doBootstrapHandler: DoBootstrapHandler = (env, { name, assets, api, manife
   const assetEnv = env.assets?.env || {};
   // Replace the bootstrap JS placeholder tokens with permitted environment variables
   // This will be used by bootstrap and communicated within the window space to the built micro UI assets
-  let contents = fs.readFileSync(path.join(__dirname, '../bootstrap', 'bootstrap.js'), 'utf8');
+  let contents = fs.readFileSync(path.join(process.cwd(), 'node_modules/@sackrin/react-micro-ui/lib/bootstrap', 'bootstrap.js'), 'utf8');
   contents = contents.replace(/__MANIFEST__/g, manifestData);
   contents = contents.replace(
     /__ENV__/g,
