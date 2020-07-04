@@ -1,8 +1,8 @@
 import AWSRestAPIEvent from '@typings/AWSRestAPIEvent';
 import AWSHttpAPIEvent from '@typings/AWSHttpAPIEvent';
 
-type GetRequestEventBody = (mode: string, context: AWSRestAPIEvent | AWSHttpAPIEvent) => { [k: string]: any };
+type GetRequestEventBody = (mode: string, event: AWSRestAPIEvent | AWSHttpAPIEvent) => { [k: string]: any };
 
-const getRequestEventBody: GetRequestEventBody = (mode, context) => (context.body ? JSON.parse(context.body) : {});
+const getRequestEventBody: GetRequestEventBody = (mode, event) => (event.body ? JSON.parse(event.body) : {});
 
 export default getRequestEventBody;
