@@ -1,6 +1,7 @@
 import express, { json } from 'express';
 import cors from 'cors';
 import LambdaModes from '@typings/LambdaModes';
+import getLocalHttp from "@src/Local/getLocalHttp";
 import getLocalRest from "@src/Local/getLocalRest";
 
 type CreateLocalMicroUI = (handler: CallableFunction, mode: LambdaModes) => { boot: any; server: any };
@@ -16,7 +17,7 @@ const createLocalMicroUI: CreateLocalMicroUI = (handler, mode) => {
   // Locally we need to serve it from the host
   server.use(express.static('./.microui'));
   // Add the use lambda polyfill
-  server.use(getLocalRest(handler));
+  server.use(mode === 'http' ? getLocalHttp(handler) : getLocalRest(handler));
   // Boot helper
   const boot = (port = 9000) => {
     // Output a message stating this is just a development server

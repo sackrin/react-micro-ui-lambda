@@ -11,7 +11,7 @@ const getLocalHttpEvent: GetLocalHttpEvent = (req, res) => {
     version: '2.0',
     routeKey: `ANY ${req.path}`,
     rawPath: req.path,
-    rawQueryString: '',
+    rawQueryString: req.originalUrl,
     headers: {
       accept: req.header('accept'),
       'accept-encoding': req.header('accept-encoding'),
@@ -25,6 +25,7 @@ const getLocalHttpEvent: GetLocalHttpEvent = (req, res) => {
       'x-forwarded-port': req.header('x-forwarded-port'),
       'x-forwarded-proto': req.header('x-forwarded-proto'),
     },
+    queryStringParameters: req.query ? req.query : undefined,
     requestContext: {
       accountId: '0123456789',
       apiId: shortid(),
